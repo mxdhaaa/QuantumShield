@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/common/Header';
-import { Sidebar, PageId } from './components/common/Sidebar';
+import { Sidebar, type PageId } from './components/common/Sidebar';
 import { DisclaimerBanner } from './components/common/DisclaimerBanner';
 import { SecurityCopilotModal } from './components/common/SecurityCopilotModal';
 

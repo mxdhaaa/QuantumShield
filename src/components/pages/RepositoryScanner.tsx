@@ -17,7 +17,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { MOCK_FINDINGS, MOCK_REPOSITORIES } from '../../data/mockData';
-import { CryptoFinding } from '../../types';
+import type { CryptoFinding } from '../../types';
 
 interface RepositoryScannerProps {
   onOpenCopilot: () => void;

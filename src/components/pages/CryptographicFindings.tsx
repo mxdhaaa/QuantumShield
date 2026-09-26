@@ -14,7 +14,7 @@ import {
   Zap
 } from 'lucide-react';
 import { MOCK_FINDINGS } from '../../data/mockData';
-import { CryptoFinding, SeverityLevel, AlgorithmCategory } from '../../types';
+import type { CryptoFinding, SeverityLevel, AlgorithmCategory } from '../../types';
 
 interface CryptographicFindingsProps {
   onOpenCopilot: () => void;

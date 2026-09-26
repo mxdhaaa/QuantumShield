@@ -15,7 +15,7 @@ import {
   Terminal
 } from 'lucide-react';
 import { CRYPTO_LAB_PROVIDERS } from '../../data/mockData';
-import { CryptoProviderType } from '../../types';
+import type { CryptoProviderType } from '../../types';
 import confetti from 'canvas-confetti';
 
 interface CryptoAgilityLabProps {
