@@ -43,15 +43,19 @@ class CryptoFinding(BaseModel):
 class RiskFactor(BaseModel):
     factor_name: str
     score: float # 0 to 10
-    weight: float
+    weight: float # 0.0 to 1.0
     description: str
     evidence: str
 
 class RiskAssessment(BaseModel):
     finding_id: str
     overall_score: float # 0 to 100
-    level: RiskLevel
+    level: RiskLevel # LOW (0-29), MEDIUM (30-59), HIGH (60-79), CRITICAL (80-100)
+    engineering_prioritization_score: float # 0 to 100
     mosca_harvest_now_decrypt_later: bool = False
+    affected_component: str
+    blast_radius_summary: str
+    recommended_action: str
     factors: List[RiskFactor]
     explanation: str
 

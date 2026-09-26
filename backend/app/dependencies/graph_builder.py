@@ -4,7 +4,7 @@ Maps callers, microservices, protocols, and downstream dependents to cryptograph
 from typing import List, Dict, Any, Set
 import os
 from backend.app.models import (
-    CryptoFinding, DependencyGraph, DependencyNode, DependencyEdge, BlastRadius, QuantumStatus
+    CryptoFinding, DependencyGraph, DependencyNode, DependencyEdge, BlastRadius, QuantumStatus, PrimitiveType
 )
 
 class DependencyGraphBuilder:
@@ -88,13 +88,16 @@ class DependencyGraphBuilder:
                 label=f.usage[:24] + "..."
             ))
 
-            # Connect Finding to Downstream Dependents based on usage
-            direct_deps: List[str] = []
-            indirect_deps: List[str] = []
-            flow_exposure = "Internal Service Boundary"
-            crit_summary = "Moderate operational impact"
+            usage_lower = f.usage.lower()
+            algo_upper = f.algorithm.upper()
+            file_lower = f.file.lower()
 
-            if "auth" in f.usage.lower() or "jwt" in f.usage.lower() or "rsa" in f.algorithm.lower():
+            is_vault = "vault" in usage_lower or "storage" in usage_lower or "aes" in algo_upper or "data-at-rest" in usage_lower
+            is_payment = "payment" in usage_lower or "transaction" in usage_lower or "payment_gateway" in file_lower
+            is_tls = "tls" in usage_lower or "channel" in usage_lower or "ecdh" in algo_upper or "dh" in algo_upper
+            is_auth = not is_vault and ("authentication" in usage_lower or "identity" in usage_lower or "jwt" in algo_upper or "auth_service" in file_lower or "rsa" in algo_upper)
+
+            if is_auth:
                 direct_deps = ["Web SPA Portal (Browser)", "iOS & Android Mobile Clients", "Auth Verification Middleware"]
                 indirect_deps = ["B2B Partner API Gateway", "Microservices Mesh (All 14 Downstream Services)"]
                 flow_exposure = "High Exposure: Ingress Authentication Gateway & Token Validation"
@@ -102,14 +105,14 @@ class DependencyGraphBuilder:
                 add_edge(DependencyEdge(id=f"edge_{finding_node_id}_web", source=finding_node_id, target="client:web_portal", relation="validates_sessions"))
                 add_edge(DependencyEdge(id=f"edge_{finding_node_id}_mob", source=finding_node_id, target="client:mobile_app", relation="validates_sessions"))
 
-            elif "payment" in f.usage.lower() or "ecdsa" in f.algorithm.lower():
+            elif is_payment:
                 direct_deps = ["B2B Partner API Gateway", "Payment Processing Engine", "Settlement Ledger"]
                 indirect_deps = ["Financial Audit Log", "Treasury Reporting System"]
                 flow_exposure = "High Financial Exposure: External Banking & Payment API"
                 crit_summary = "Critical Financial Blast Radius: Compromise enables fraudulent transaction signing."
                 add_edge(DependencyEdge(id=f"edge_{finding_node_id}_partner", source=finding_node_id, target="client:partner_api", relation="signs_transactions"))
 
-            elif "tls" in f.usage.lower() or "channel" in f.usage.lower() or "ecdh" in f.algorithm.lower() or "dh" in f.algorithm.lower():
+            elif is_tls:
                 direct_deps = ["TLS Ingress Controller", "Inter-Service Mutual TLS (mTLS) Mesh"]
                 indirect_deps = ["All Microservice In-Transit RPC Traffic", "Customer Data Streams"]
                 flow_exposure = "Critical In-Transit Exposure: Harvest-Now-Decrypt-Later (HNDL) Vulnerable"
@@ -117,10 +120,10 @@ class DependencyGraphBuilder:
                 add_edge(DependencyEdge(id=f"edge_{finding_node_id}_tls", source=finding_node_id, target="client:web_portal", relation="encrypts_in_transit"))
                 add_edge(DependencyEdge(id=f"edge_{finding_node_id}_partner_tls", source=finding_node_id, target="client:partner_api", relation="encrypts_in_transit"))
 
-            elif "vault" in f.usage.lower() or "aes" in f.algorithm.lower() or "storage" in f.usage.lower():
+            elif is_vault:
                 direct_deps = ["Database Encryption Driver", "Customer PII Vault"]
                 indirect_deps = ["Database Replication Targets", "Cold Backup Archive"]
-                flow_exposure = "High Confidentiality: Persistent Database at Rest"
+                flow_exposure = "Internal Storage: Persistent Encrypted Database at Rest"
                 crit_summary = "Symmetric encryption with AES-256 retains 128-bit quantum security under Grover's."
                 add_edge(DependencyEdge(id=f"edge_{finding_node_id}_storage", source=finding_node_id, target="client:db_storage", relation="encrypts_at_rest"))
 

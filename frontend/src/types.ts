@@ -44,7 +44,11 @@ export interface RiskAssessment {
   finding_id: string;
   overall_score: number;
   level: RiskLevel;
+  engineering_prioritization_score: number;
   mosca_harvest_now_decrypt_later: boolean;
+  affected_component: string;
+  blast_radius_summary: string;
+  recommended_action: string;
   factors: RiskFactor[];
   explanation: string;
 }
