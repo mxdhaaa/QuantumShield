@@ -6,7 +6,6 @@ import { SecurityCopilotModal } from './components/common/SecurityCopilotModal';
 
 // Pages
 import { ExecutiveDashboard } from './components/pages/ExecutiveDashboard';
-import { RepositoryScanner } from './components/pages/RepositoryScanner';
 import { CryptographicFindings } from './components/pages/CryptographicFindings';
 import { DependencyIntelligenceGraph } from './components/pages/DependencyIntelligenceGraph';
 import { CertificateIntelligence } from './components/pages/CertificateIntelligence';
@@ -18,7 +17,7 @@ import { MOCK_FINDINGS } from './data/mockData';
 
 export function App() {
   const [activePage, setActivePage] = useState<PageId>('dashboard');
-  const [activeTenant, setActiveTenant] = useState('Contoso Enterprise (Global Tenant)');
+  const [activeTenant, setActiveTenant] = useState('QuantumShield Demo Environment');
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -40,8 +39,6 @@ export function App() {
     switch (activePage) {
       case 'dashboard':
         return <ExecutiveDashboard onNavigate={(p: any) => setActivePage(p)} onOpenCopilot={() => setIsCopilotOpen(true)} />;
-      case 'scanner':
-        return <RepositoryScanner onOpenCopilot={() => setIsCopilotOpen(true)} />;
       case 'findings':
         return <CryptographicFindings onOpenCopilot={() => setIsCopilotOpen(true)} />;
       case 'graph':
@@ -102,3 +99,4 @@ export function App() {
 }
 
 export default App;
+

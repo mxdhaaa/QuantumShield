@@ -37,7 +37,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const navItems = [
     { id: 'dashboard' as PageId, label: 'Executive Dashboard', icon: LayoutDashboard, badge: null },
-    { id: 'scanner' as PageId, label: 'Repository Scanner', icon: FolderSearch, badge: '5 Repos' },
     { id: 'findings' as PageId, label: 'Cryptographic Findings', icon: ShieldAlert, badge: criticalCount > 0 ? `${criticalCount} Crit` : null, urgent: true },
     { id: 'graph' as PageId, label: 'Dependency Intelligence Graph', icon: Network, badge: 'Interactive', showstopper: true },
     { id: 'certificates' as PageId, label: 'Certificate Intelligence', icon: KeyRound, badge: '5 Certs' },
@@ -127,3 +126,4 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </aside>
   );
 };
+

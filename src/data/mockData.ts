@@ -265,7 +265,7 @@ export const MOCK_CERTIFICATES: CertificateItem[] = [
   {
     id: 'CERT-002',
     name: 'auth.azure.contoso.internal',
-    issuer: 'Contoso Enterprise Sub-CA 01',
+    issuer: 'QuantumShield Internal Sub-CA 01',
     signatureAlgorithm: 'ECDSAwithSHA384',
     keyType: 'ECC (P-384)',
     keySize: 384,
@@ -293,7 +293,7 @@ export const MOCK_CERTIFICATES: CertificateItem[] = [
   {
     id: 'CERT-004',
     name: 'hybrid-pqc-mesh.contoso-security.net',
-    issuer: 'QUANTUMSHIFT Hybrid Root CA',
+    issuer: 'QUANTUMSHIELD Hybrid Root CA',
     signatureAlgorithm: 'Composite (Dilithium3 + RSA-4096)',
     keyType: 'Hybrid PQC',
     keySize: 4096,
@@ -469,3 +469,4 @@ const signature = await provider.sign(data, privateKey);
 const isValid = await provider.verify(data, signature, publicKey);`
   }
 };
+

@@ -49,7 +49,7 @@ export const ReportsCenter: React.FC<ReportsCenterProps> = ({ onOpenCopilot, ten
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`QUANTUMSHIFT_PQC_Assessment_Report_${tenantName.replace(/\s+/g, '_')}.pdf`);
+      pdf.save(`QUANTUMSHIELD_PQC_Assessment_Report_${tenantName.replace(/\s+/g, '_')}.pdf`);
     } catch (err) {
       console.error('PDF Generation Error:', err);
     } finally {
@@ -140,7 +140,7 @@ export const ReportsCenter: React.FC<ReportsCenterProps> = ({ onOpenCopilot, ten
             1. Executive Summary
           </h3>
           <p className="text-xs text-slate-300 leading-relaxed">
-            QUANTUMSHIFT performed static code analysis, certificate inventorying, and dependency graph topology parsing across <strong>{MOCK_REPOSITORIES.length} repositories</strong> and <strong>{MOCK_CERTIFICATES.length} enterprise TLS certificates</strong>. The organization currently exhibits an overall Post-Quantum Readiness Score of <strong>42%</strong>.
+            QUANTUMSHIELD performed static code analysis, certificate inventorying, and dependency graph topology parsing across <strong>{MOCK_REPOSITORIES.length} repositories</strong> and <strong>{MOCK_CERTIFICATES.length} enterprise TLS certificates</strong>. The organization currently exhibits an overall Post-Quantum Readiness Score of <strong>42%</strong>.
           </p>
           <div className="grid grid-cols-3 gap-4 pt-2 font-mono text-xs">
             <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
@@ -223,7 +223,7 @@ export const ReportsCenter: React.FC<ReportsCenterProps> = ({ onOpenCopilot, ten
 
         {/* Footer */}
         <div className="pt-6 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-500">
-          <span>QUANTUMSHIFT Enterprise Report Generator</span>
+          <span>QUANTUMSHIELD Enterprise Report Generator</span>
           <span>Page 1 of 1 • Internal CISO Copy</span>
         </div>
 
@@ -232,3 +232,4 @@ export const ReportsCenter: React.FC<ReportsCenterProps> = ({ onOpenCopilot, ten
     </div>
   );
 };
+

@@ -11,7 +11,7 @@ export const SecurityCopilotModal: React.FC<SecurityCopilotModalProps> = ({ isOp
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'assistant'; text: string; code?: string }>>([
     {
       role: 'assistant',
-      text: 'Hello! I am QUANTUMSHIFT Security Copilot. I analyze your enterprise codebase, certificate store, and dependency graph for Post-Quantum Readiness. How can I assist your migration team today?'
+      text: 'Hello! I am QUANTUMSHIELD Security Copilot. I analyze your enterprise codebase, certificate store, and dependency graph for Post-Quantum Readiness. How can I assist your migration team today?'
     }
   ]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -39,9 +39,9 @@ export const SecurityCopilotModal: React.FC<SecurityCopilotModalProps> = ({ isOp
       let botCode = undefined;
 
       if (promptText.toLowerCase().includes('rsa') || promptText.toLowerCase().includes('critical')) {
-        botReply = 'Based on QUANTUMSHIFT discovery index: 2 repositories contain critical RSA-2048 findings (`azure-auth-gateway-service` and `payment-token-vault-api`). RSA-2048 provides zero security against Shor\'s algorithm on a ~2000 qubit quantum computer. We recommend immediate transition to ML-KEM-768 for key exchange.';
+        botReply = 'Based on QUANTUMSHIELD discovery index: 2 repositories contain critical RSA-2048 findings (`azure-auth-gateway-service` and `payment-token-vault-api`). RSA-2048 provides zero security against Shor\'s algorithm on a ~2000 qubit quantum computer. We recommend immediate transition to ML-KEM-768 for key exchange.';
         botCode = `// Recommended PQC Replacement (NIST FIPS 203)
-import { MLKEM768 } from '@quantumshift/pqc-crypto';
+import { MLKEM768 } from '@QUANTUMSHIELD/pqc-crypto';
 
 const kem = new MLKEM768();
 const { publicKey, ciphertext, sharedSecret } = await kem.encapsulate();`;
@@ -54,7 +54,7 @@ sig.update(data);`;
       } else if (promptText.toLowerCase().includes('certificate')) {
         botReply = 'Found 2 critical certificates expiring within 50 days (`api.contoso-payments.com` & `kms.cloud.contoso.io`). Neither currently supports composite hybrid headers (Dilithium + RSA). You should issue hybrid certificates before Q4 2026.';
       } else {
-        botReply = 'QUANTUMSHIFT has analyzed 5 repositories, 8 critical algorithms, and 5 enterprise TLS certificates. Migration readiness is currently 42%. Transitioning legacy providers to Crypto-Agile abstractions is your highest priority step.';
+        botReply = 'QUANTUMSHIELD has analyzed 5 repositories, 8 critical algorithms, and 5 enterprise TLS certificates. Migration readiness is currently 42%. Transitioning legacy providers to Crypto-Agile abstractions is your highest priority step.';
       }
 
       setMessages([...newMessages, { role: 'assistant', text: botReply, code: botCode }]);
@@ -162,3 +162,4 @@ sig.update(data);`;
     </div>
   );
 };
+

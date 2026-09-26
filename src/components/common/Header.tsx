@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [showNotifications, setShowNotifications] = useState(false);
 
   const tenants = [
-    'Contoso Enterprise (Global Tenant)',
+    'QuantumShield Demo Environment',
     'Azure GovCloud Cyber Vault',
     'Woodgrove Financial Services'
   ];
@@ -191,3 +191,4 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+
